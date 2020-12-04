@@ -77,11 +77,15 @@ async function release() {
     }
 
     logStep('sync version to root package.json')
+    
     if (args.minor) {
+      publishVersion.patch = 0
       publishVersion.minor = Number(publishVersion.minor) + 1
     }
 
     if (args.major) {
+      publishVersion.patch = 0
+      publishVersion.minor = 0
       publishVersion.major = Number(publishVersion.major) + 1
     }
 
