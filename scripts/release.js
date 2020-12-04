@@ -1,6 +1,6 @@
 const { yParser, execa, chalk } = require('@nodecorejs/libs');
 const { getRootPackage } = require('@nodecorejs/dot-runtime');
-const { join } = require('path');
+const { join, resolve } = require('path');
 const { writeFileSync } = require('fs');
 const newGithubReleaseUrl = require('new-github-release-url');
 const open = require('open');
