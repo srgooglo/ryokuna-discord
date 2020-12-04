@@ -71,13 +71,13 @@ async function release() {
       logStep('build');
       await exec(/^win/.test(process.platform) ? 'npm.cmd' : 'npm', ['run', 'build'])
       const changes = await getChanges()
-      publishVersion.patch = (Number(publishVersion.patch) + changes)
+      publishVersion.patch = Number(publishVersion.patch) + changes
     } else {
       logStep('build is skipped, since args.skipBuild is supplied');
     }
 
     logStep('sync version to root package.json')
-    
+
     if (args.minor) {
       publishVersion.patch = 0
       publishVersion.minor = Number(publishVersion.minor) + 1
