@@ -1,6 +1,5 @@
 {
   "name": "ryokuna-discord",
-  "version": "0.2.357",
   "description": "BlahBlahBlah",
   "main": "index.js",
   "originGit": "https://github.com/srgooglo/ryokuna-discord",
@@ -48,5 +47,6 @@
     "nodemon": "^2.0.6",
     "open": "^7.3.0",
     "ts-node": "^9.1.0"
-  }
+  },
+  "version": "0.0.0"
 }
