@@ -7,8 +7,8 @@ const open = require('open');
 const exec = require('./utils/exec');
 const isNextVersion = require('./utils/isNextVersion');
 const { getChangelog } = require('./utils/changelog');
-const getChanges = require('./scripts/utils/changelog');
-const versionParsed = require('./scripts/utils/parsedVersion')
+const getChanges = require('./utils/changelog');
+const versionParsed = require('./utils/parsedVersion')
 
 const cwd = process.cwd();
 
