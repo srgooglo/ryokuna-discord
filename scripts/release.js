@@ -5,9 +5,8 @@ const { writeFileSync } = require('fs');
 const newGithubReleaseUrl = require('new-github-release-url');
 const open = require('open');
 const exec = require('./utils/exec');
-const isNextVersion = require('./utils/isNextVersion');
-const { getChangelog } = require('./utils/changelog');
-const getChanges = require('./utils/changelog');
+const {getChangelog} = require('./utils/changelog');
+const getChanges = require('./utils/changes');
 const versionParsed = require('./utils/parsedVersion')
 
 const cwd = process.cwd();

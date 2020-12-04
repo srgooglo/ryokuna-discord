@@ -2,7 +2,7 @@ const { htmlEscape } = require('escape-goat');
 const { getRootPackage } = require('@nodecorejs/dot-runtime');
 const git = require('./git');
 
-module.exports = async () => {
+exports.getChangelog = async () => {
   const repoUrl = getRootPackage().originGit;
   if (!repoUrl) {
     throw new Error(`Development git not found at runtime`);
@@ -14,5 +14,16 @@ module.exports = async () => {
     throw new Error(`Get changelog failed, no new commits was found.`);
   }
 
-  return log.split('\n').length
+  const commits = log.split('\n').map((commit) => {
+    const splitIndex = commit.lastIndexOf(' ');
+    return {
+      message: commit.slice(0, splitIndex),
+      id: commit.slice(splitIndex + 1),
+    };
+  });
+
+  return (nextTag) =>
+    commits
+      .map((commit) => `- ${htmlEscape(commit.message)}  ${commit.id}`)
+      .join('\n') + `\n\n${repoUrl}/compare/${latest}...${nextTag}`;
 };

@@ -14,13 +14,5 @@ exports.getChangelog = async () => {
     throw new Error(`Get changelog failed, no new commits was found.`);
   }
 
-  const commits = log.split('\n').map((commit) => {
-    const splitIndex = commit.lastIndexOf(' ');
-    return {
-      message: commit.slice(0, splitIndex),
-      id: commit.slice(splitIndex + 1),
-    };
-  });
-
-  return commits
+  return log.split('\n').length
 };
