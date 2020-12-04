@@ -62,7 +62,7 @@ async function release() {
     // Build
     if (!args.skipBuild) {
       logStep('build');
-      await exec('npm', ['run', 'build']);
+      await exec(/^win/.test(process.platform) ? 'npm.cmd' : 'npm', ['run', 'build']);
     } else {
       logStep('build is skipped, since args.skipBuild is supplied');
     }
