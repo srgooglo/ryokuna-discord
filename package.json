@@ -3,6 +3,10 @@
   "description": "BlahBlahBlah",
   "main": "index.js",
   "originGit": "https://github.com/srgooglo/ryokuna-discord",
+  "files": [
+    "./dist",
+    "./package.json"
+  ],
   "engines": {
     "node": ">=12.0.0"
   },

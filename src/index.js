@@ -35,7 +35,7 @@ const escapeRegex = (str) => str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
  * Client Events
  */
 client.on("ready", () => {
-  flushNickname()
+  // TO DO: flushNickname
   console.log(`🆗 ${client.user.username} ready!`);
   client.user.setActivity(`For you! | comty!help | v${getVersion()}`, { type : "LISTENING" });
 });
