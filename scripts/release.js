@@ -30,6 +30,7 @@ async function checkGitStatus() {
 }
 
 async function release() {
+  const currVersion = getRootPackage().version
 
   // Check git status
   if (!args.skipGitStatusCheck) {
@@ -65,18 +66,6 @@ async function release() {
       logStep('build is skipped, since args.skipBuild is supplied');
     }
 
-    // Bump version
-    logStep('bump version with lerna version');
-    await exec(resolve(process.cwd, './node_modules/lerna/cli'), [
-      'version',
-      '--exact',
-      '--no-commit-hooks',
-      '--no-git-tag-version',
-      '--no-push',
-    ]);
-
-    const currVersion = require('../lerna').version;
-
     // Commit
     const commitMessage = `release: v${currVersion}`;
     logStep(`git commit with ${chalk.blue(commitMessage)}`);
@@ -91,14 +80,8 @@ async function release() {
     await exec('git', ['push', 'origin', 'master', '--tags']);
   }
 
-  const currVersion = require('../lerna').version;
-  const isNext = isNextVersion(currVersion);
-
-  console.log(`Publish package ${name} ${isNext ? 'with next tag' : ''}`)
-  const cliArgs = isNext ? ['publish', '--tag', 'next'] : ['publish'];
-
   try {
-    const { stdout } = execa.sync('npm', cliArgs, {
+    const { stdout } = execa.sync('yarn', ['publish'], {
       cwd: pkgPath,
     })
     console.log(stdout);
