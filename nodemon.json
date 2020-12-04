@@ -1,8 +1,7 @@
 {  
-    "ignore": ["dist/"],
+    "ignore": ["dist/", "./.pidfile"],
     "events": {
-        "start": "yarn build",
-        "restart": "node ./dist/pid.js",
-        "stop": "node ./dist/pid.js stop"
+        "start": "yarn build && node ./dist/pid.js",
+        "restart": "node ./dist/pid.js"
     }
 }
