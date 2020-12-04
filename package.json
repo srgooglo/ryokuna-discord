@@ -1,8 +1,9 @@
 {
-  "name": "comty-discord-bot",
+  "name": "ryokuna-discord",
   "version": "0.2.356",
   "description": "BlahBlahBlah",
   "main": "index.js",
+  "originGit": "https://github.com/srgooglo/ryokuna-discord",
   "engines": {
     "node": ">=12.0.0"
   },
@@ -21,13 +22,13 @@
     "opusscript": "^0.0.7"
   },
   "scripts": {
+    "release": "node ./scripts/release.js",
     "dev": "nodemon --exec babel-node ./src/index.js",
     "start": "node ./dist/index.js",
     "build": "rm -rf dist && npm run babelOut",
     "babelOut": "babel src --out-dir dist"
   },
   "devDependencies": {
-    "nodemon": "^2.0.6",
     "@babel/cli": "^7.12.8",
     "@babel/core": "^7.12.9",
     "@babel/node": "^7.12.6",
@@ -39,6 +40,13 @@
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
     "@babel/plugin-transform-runtime": "^7.12.1",
     "@babel/preset-env": "^7.12.7",
+    "@nodecorejs/libs": "^0.4.4",
+    "args-parser": "^1.1.0",
+    "assert": "^2.0.0",
+    "escape-goat": "^3.0.0",
+    "new-github-release-url": "^1.0.0",
+    "nodemon": "^2.0.6",
+    "open": "^7.3.0",
     "ts-node": "^9.1.0"
   }
 }
