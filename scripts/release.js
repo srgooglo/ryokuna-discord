@@ -12,8 +12,6 @@ const cwd = process.cwd();
 
 const args = require("args-parser")(process.argv)
 
-const lernaCli = require('lerna/cli');
-
 function printErrorAndExit(message) {
   console.error(chalk.red(message));
   process.exit(1);
@@ -69,7 +67,7 @@ async function release() {
 
     // Bump version
     logStep('bump version with lerna version');
-    await exec(lernaCli, [
+    await exec(resolve(process.cwd, './node_modules/lerna/cli'), [
       'version',
       '--exact',
       '--no-commit-hooks',
