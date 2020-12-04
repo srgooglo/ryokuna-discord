@@ -30,6 +30,7 @@ try {
 const client = new Client({ disableMentions: "everyone" });
 
 client.login(TOKEN);
+client.defaultTextChannel = null // TO DO: Fetch default text channel guild from runtime
 client.commands = new Collection();
 client.prefix = PREFIX;
 client.queue = new Map();
@@ -123,7 +124,7 @@ client.on("message", async (message) => {
 const exitHook = require('exit-hook');
 exitHook(() => {
   if (global.connectedVoiceChannel) {
-    global.connectedVoiceChannel.channel.send("🛑 The server is reloading due is rebuilding, all services have been exited.")
+    //global.connectedVoiceChannel.channel.send("🛑 The server is reloading due is rebuilding, all services have been exited.")
     global.connectedVoiceChannel.channel.leave()
   }
   if (global.pidFile) {
