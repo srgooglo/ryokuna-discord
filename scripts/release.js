@@ -33,6 +33,7 @@ async function checkGitStatus() {
 async function release() {
   let publishVersion = versionParsed();
   let rootPkg = require('../package')
+  const currVersion = `${publishVersion.major}.${publishVersion.minor}.${publishVersion.patch}`
 
   // Check git status
   if (!args.skipGitStatusCheck) {
@@ -66,29 +67,27 @@ async function release() {
       await exec(/^win/.test(process.platform) ? 'npm.cmd' : 'npm', ['run', 'build'])
       const changes = await getChanges()
       
-      publishVersion.patch = publishVersion.patch + changes
+      publishVersion.patch = (Number(publishVersion.patch) + Number(changes))
     } else {
       logStep('build is skipped, since args.skipBuild is supplied');
     }
 
     logStep('sync version to root package.json')
     if (args.minor) {
-      publishVersion.minor = publishVersion.minor ++
+      publishVersion.minor = Number(publishVersion.minor) ++
     }
 
     if (args.major) {
-      publishVersion.major = publishVersion.major ++
+      publishVersion.major = Number(publishVersion.major) ++
     }
 
-    rootPkg.version = `${publishVersion.major}.${publishVersion.minor}.${publishVersion.patch}`
+    rootPkg.version = currVersion
 
     writeFileSync(
       join(__dirname, '..', 'package.json'),
       JSON.stringify(rootPkg, null, 2) + '\n',
       'utf-8',
     );
-
-    const currVersion = getRootPackage().version
 
     // Commit
     const commitMessage = `release: v${currVersion}`;
