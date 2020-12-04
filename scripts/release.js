@@ -7,6 +7,8 @@ const open = require('open');
 const exec = require('./utils/exec');
 const isNextVersion = require('./utils/isNextVersion');
 const { getChangelog } = require('./utils/changelog');
+const getChanges = require('./scripts/utils/changelog');
+const versionParsed = require('./scripts/utils/parsedVersion')
 
 const cwd = process.cwd();
 
@@ -30,6 +32,9 @@ async function checkGitStatus() {
 }
 
 async function release() {
+  let publishVersion = versionParsed;
+  let rootPkg = require('../package')
+
   const currVersion = getRootPackage().version
 
   // Check git status
@@ -61,11 +66,29 @@ async function release() {
     // Build
     if (!args.skipBuild) {
       logStep('build');
-      await exec(/^win/.test(process.platform) ? 'npm.cmd' : 'npm', ['run', 'build']);
+      await exec(/^win/.test(process.platform) ? 'npm.cmd' : 'npm', ['run', 'build'])
+      const changes = await getChanges()
+      publishVersion.patch = publishVersion.patch + changes
     } else {
       logStep('build is skipped, since args.skipBuild is supplied');
     }
 
+    logStep('sync version to root package.json')
+    if (args.minor) {
+      publishVersion.minor = publishVersion.minor ++
+    }
+
+    if (args.major) {
+      publishVersion.major = publishVersion.major ++
+    }
+
+    rootPkg.version = publishVersion
+
+    writeFileSync(
+      join(__dirname, '..', 'package.json'),
+      JSON.stringify(rootPkg, null, 2) + '\n',
+      'utf-8',
+    );
     // Git Tag
     logStep(`git tag v${currVersion}`);
     await exec('git', ['tag', `v${currVersion}`]);
