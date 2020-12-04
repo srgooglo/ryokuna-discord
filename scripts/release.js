@@ -67,6 +67,7 @@ async function release() {
       logStep('build');
       await exec(/^win/.test(process.platform) ? 'npm.cmd' : 'npm', ['run', 'build'])
       const changes = await getChanges()
+      
       publishVersion.patch = publishVersion.patch + changes
     } else {
       logStep('build is skipped, since args.skipBuild is supplied');

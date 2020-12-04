@@ -1,8 +1,7 @@
-const { htmlEscape } = require('escape-goat');
 const { getRootPackage } = require('@nodecorejs/dot-runtime');
 const git = require('./git');
 
-exports.getChangelog = async () => {
+module.exports = async () => {
   const repoUrl = getRootPackage().originGit;
   if (!repoUrl) {
     throw new Error(`Development git not found at runtime`);
