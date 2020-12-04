@@ -30,10 +30,15 @@ async function checkGitStatus() {
   }
 }
 
+function parsedVersionToString(parsed) {
+  return `${parsed.major}.${parsed.minor}.${parsed.patch}`
+}
+
 async function release() {
   let publishVersion = versionParsed();
   let rootPkg = require('../package')
-  const currVersion = `${publishVersion.major}.${publishVersion.minor}.${publishVersion.patch}`
+  const currVersion = parsedVersionToString(publishVersion)
+
 
   // Check git status
   if (!args.skipGitStatusCheck) {
@@ -66,8 +71,7 @@ async function release() {
       logStep('build');
       await exec(/^win/.test(process.platform) ? 'npm.cmd' : 'npm', ['run', 'build'])
       const changes = await getChanges()
-      
-      publishVersion.patch = (Number(publishVersion.patch) + Number(changes))
+      publishVersion.patch = (Number(publishVersion.patch) + changes)
     } else {
       logStep('build is skipped, since args.skipBuild is supplied');
     }
@@ -81,7 +85,7 @@ async function release() {
       publishVersion.major = Number(publishVersion.major) ++
     }
 
-    rootPkg.version = currVersion
+    rootPkg.version = parsedVersionToString(publishVersion)
 
     writeFileSync(
       join(__dirname, '..', 'package.json'),
