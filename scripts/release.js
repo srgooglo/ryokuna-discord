@@ -37,7 +37,7 @@ function parsedVersionToString(parsed) {
 async function release() {
   let publishVersion = versionParsed();
   let rootPkg = require('../package')
-  const currVersion = parsedVersionToString(publishVersion)
+  let currVersion = parsedVersionToString(publishVersion)
 
 
   // Check git status
@@ -86,7 +86,8 @@ async function release() {
     }
 
     rootPkg.version = parsedVersionToString(publishVersion)
-
+    currVersion = parsedVersionToString(publishVersion)
+    
     writeFileSync(
       join(__dirname, '..', 'package.json'),
       JSON.stringify(rootPkg, null, 2) + '\n',
