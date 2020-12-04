@@ -78,16 +78,16 @@ async function release() {
 
     logStep('sync version to root package.json')
     if (args.minor) {
-      publishVersion.minor = Number(publishVersion.minor) ++
+      publishVersion.minor = Number(publishVersion.minor) + 1
     }
 
     if (args.major) {
-      publishVersion.major = Number(publishVersion.major) ++
+      publishVersion.major = Number(publishVersion.major) + 1
     }
 
     rootPkg.version = parsedVersionToString(publishVersion)
     currVersion = parsedVersionToString(publishVersion)
-    
+
     writeFileSync(
       join(__dirname, '..', 'package.json'),
       JSON.stringify(rootPkg, null, 2) + '\n',
