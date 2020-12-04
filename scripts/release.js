@@ -31,10 +31,8 @@ async function checkGitStatus() {
 }
 
 async function release() {
-  let publishVersion = versionParsed;
+  let publishVersion = versionParsed();
   let rootPkg = require('../package')
-
-  const currVersion = getRootPackage().version
 
   // Check git status
   if (!args.skipGitStatusCheck) {
@@ -89,6 +87,9 @@ async function release() {
       JSON.stringify(rootPkg, null, 2) + '\n',
       'utf-8',
     );
+
+    const currVersion = getRootPackage().version
+
     // Git Tag
     logStep(`git tag v${currVersion}`);
     await exec('git', ['tag', `v${currVersion}`]);
