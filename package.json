@@ -45,6 +45,7 @@
     "@nodecorejs/libs": "^0.4.4",
     "args-parser": "^1.1.0",
     "assert": "^2.0.0",
+    "babel-node": "^0.0.1-security",
     "escape-goat": "^3.0.0",
     "i": "^0.3.6",
     "new-github-release-url": "^1.0.0",

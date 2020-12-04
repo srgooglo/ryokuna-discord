@@ -112,15 +112,6 @@ async function release() {
     await exec('git', ['push', 'origin', 'master', '--tags']);
   }
 
-  try {
-    const { stdout } = execa.sync('yarn', ['publish'], {
-      cwd: process.cwd(),
-    })
-    console.log(stdout);
-  } catch (error) {
-    console.log(`❌ Failed to publish >`, error)
-  }
-
   if (!getRootPackage().originGit) {
     return printErrorAndExit(`originGit is missing on runtime`);
   }
