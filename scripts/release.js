@@ -80,7 +80,7 @@ async function release() {
       publishVersion.major = publishVersion.major ++
     }
 
-    rootPkg.version = publishVersion
+    rootPkg.version = `${publishVersion.major}.${publishVersion.minor}.${publishVersion.patch}`
 
     writeFileSync(
       join(__dirname, '..', 'package.json'),
@@ -89,6 +89,11 @@ async function release() {
     );
 
     const currVersion = getRootPackage().version
+
+    // Commit
+    const commitMessage = `release: v${currVersion}`;
+    logStep(`git commit with ${chalk.blue(commitMessage)}`);
+    await exec('git', ['commit', '--all', '--message', commitMessage]);
 
     // Git Tag
     logStep(`git tag v${currVersion}`);
