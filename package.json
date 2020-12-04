@@ -15,6 +15,7 @@
     "@discordjs/opus": "^0.3.3",
     "@ragestudio/nodecore-utils": "^0.1.199",
     "discord.js": "^12.4.1",
+    "exit-hook": "^2.2.0",
     "got": "^11.8.0",
     "node-fetch": "^2.6.1",
     "node-opus": "^0.3.3",
@@ -23,10 +24,10 @@
     "rimraf": "^3.0.2"
   },
   "scripts": {
+    "dev": "nodemon --signal SIGHUP --exec babel-node ./src/index.js",
     "release": "node ./scripts/release.js",
-    "dev": "nodemon --exec babel-node ./src/index.js",
     "start": "node ./dist/index.js",
-    "build": "rm -rf dist && npm run babelOut",
+    "build": "rimraf ./dist && npm run babelOut",
     "babelOut": "babel src --out-dir dist"
   },
   "devDependencies": {

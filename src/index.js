@@ -1,3 +1,6 @@
+import fs from 'fs'
+import path from 'path'
+
 import disconnectFromCurrent from './lib/disconnectFromCurrent'
 import flushNickname from './lib/flushNickname'
 
@@ -8,6 +11,11 @@ const process = require('process')
 const { Client, Collection } = require("discord.js");
 const { readdirSync } = require("fs");
 const { join } = require("path");
+
+const pidFile = path.resolve(process.cwd(), './.pidfile')
+if (fs.existsSync(pidFile)) {
+  global['pidFile'] = fs.readFileSync(pidFile)
+}
 
 let TOKEN, PREFIX;
 try {
@@ -109,5 +117,12 @@ client.on("message", async (message) => {
   } catch (error) {
     console.error(error);
     message.reply("There was an error executing that command.").catch(console.error);
+  }
+});
+
+const exitHook = require('exit-hook');
+exitHook(() => {
+  if (global.pidFile) {
+    fs.unlinkSync(pidFile)
   }
 });

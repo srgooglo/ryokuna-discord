@@ -6,6 +6,7 @@
 dist/
 node_modules/
 test.js
+.pidfile
 
 ./package-lock.json
 package-lock.json

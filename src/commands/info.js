@@ -12,6 +12,6 @@ export default {
             cpuUsage: process.cpuUsage(),
             memoryUsage: process.memoryUsage()
         }
-        message.channel.send(`${info}`)
+        message.channel.send(JSON.stringify(info))
     }
 }
