@@ -9,7 +9,7 @@ export default (message) => {
         message.channel.send('😳 I am not connected to your voice channel');
         return false
     }
-    
+
     flushNickname()
-    setTimeout(() =>{ message.member.voice.channel.leave()}, 500)
+    setTimeout(() => { message.member.voice.channel.leave() }, 500)
 }

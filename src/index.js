@@ -122,6 +122,10 @@ client.on("message", async (message) => {
 
 const exitHook = require('exit-hook');
 exitHook(() => {
+  if (global.connectedVoiceChannel) {
+    global.connectedVoiceChannel.channel.send("🛑 The server is reloading due is rebuilding, all services have been exited.")
+    global.connectedVoiceChannel.channel.leave()
+  }
   if (global.pidFile) {
     fs.unlinkSync(pidFile)
   }
