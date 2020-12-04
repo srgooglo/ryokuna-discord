@@ -24,7 +24,7 @@ module.exports = {
         message.reply(`🆗 Streaming cathed from stm server -> ${uri} <- (For a better sound quality you will have to listen to it from the server origin itself)`)
         
         if (runtime.ryo.originName) {
-          global.self.setNickname(`${runtime.ryo.originName} | ${args[0]}`)
+          global.self.setNickname(`${runtime.ryo.originName} | 📻 ${args[0]}`)
         }
 
         voiceChannel.join().then(connection => {
