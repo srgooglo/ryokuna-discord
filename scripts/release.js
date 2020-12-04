@@ -77,11 +77,11 @@ async function release() {
 
   try {
     const { stdout } = execa.sync('yarn', ['publish'], {
-      cwd: pkgPath,
+      cwd: process.cwd(),
     })
     console.log(stdout);
   } catch (error) {
-    console.log(`❌ Failed to publish > ${pkg} >`, error)
+    console.log(`❌ Failed to publish >`, error)
   }
 
   if (!getRootPackage().originGit) {
@@ -96,7 +96,7 @@ async function release() {
     repoUrl: getRootPackage().originGit,
     tag,
     body: changelog,
-    isPrerelease: isNext,
+    isPrerelease: args.pre? args.pre : false,
   });
   try {
     await open(url);
