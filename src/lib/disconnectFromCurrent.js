@@ -11,6 +11,5 @@ export default (message) => {
     }
     
     flushNickname()
-    message.member.voice.channel.leave()
-    message.channel.send('🛑 Disconnected your channel');
+    setTimeout(() =>{ message.member.voice.channel.leave()}, 500)
 }

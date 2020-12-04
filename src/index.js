@@ -1,3 +1,5 @@
+import disconnectFromCurrent from './lib/disconnectFromCurrent'
+
 import runtime from '@nodecorejs/dot-runtime'
 import { getVersion } from '@nodecorejs/dot-runtime'
 
@@ -53,6 +55,7 @@ for (const file of commandFiles) {
 
 client.on("message", async (message) => {
   global["self"] = message.guild.member(global.selfClient.user);
+  global["connectedVoiceChannel"] = global.selfClient.voice.connections.find(con => con.channel.id == message.member.voice.channel.id)
 
   if (message.author.bot) return;
   if (!message.guild) return;
@@ -97,6 +100,9 @@ client.on("message", async (message) => {
   setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
 
   try {
+    if (global.connectedVoiceChannel) {
+      disconnectFromCurrent(message)
+    }
     command.execute(message, args, client);
   } catch (error) {
     console.error(error);
