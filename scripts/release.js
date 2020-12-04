@@ -66,11 +66,6 @@ async function release() {
       logStep('build is skipped, since args.skipBuild is supplied');
     }
 
-    // Commit
-    const commitMessage = `release: v${currVersion}`;
-    logStep(`git commit with ${chalk.blue(commitMessage)}`);
-    await exec('git', ['commit', '--all', '--message', commitMessage]);
-
     // Git Tag
     logStep(`git tag v${currVersion}`);
     await exec('git', ['tag', `v${currVersion}`]);
