@@ -12,7 +12,7 @@ const cwd = process.cwd();
 
 const args = require("args-parser")(process.argv)
 
-const lernaCli = require.resolve('lerna/cli');
+const lernaCli = require('lerna/cli');
 
 function printErrorAndExit(message) {
   console.error(chalk.red(message));
