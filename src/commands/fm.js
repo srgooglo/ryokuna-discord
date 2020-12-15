@@ -17,14 +17,12 @@ module.exports = {
 
     const sourceStation = runtime.ryo.sourceStation;
     if (typeof (args) == "undefined" || !args[0]) {
-      args[0] = "bruhFM"
+      args[0] = "main"
     }
 
     const uri = `${sourceStation}${args[0]}`
 
     const voiceChannel = message.member.voice.channel;
-
-   
 
     try {
       fetch(uri).then((res) => {
