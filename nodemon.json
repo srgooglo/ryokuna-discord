@@ -1,5 +1,5 @@
 {  
-    "ignore": ["dist/", "./.pidfile", "./.customReply.json", "userTriggers.json"],
+    "ignore": ["dist/", "./.pidfile", "triggers.json"],
     "events": {
         "start": "yarn build && node ./dist/pid.js",
         "restart": "node ./dist/pid.js"

@@ -12,26 +12,14 @@ const { Client, Collection } = require("discord.js");
 const { readdirSync } = require("fs");
 const { join } = require("path");
 
-const customReplyFilePath = path.resolve(process.cwd(), './customReply.json')
-const userTriggersFilePath = path.resolve(process.cwd(), "./userTriggers.json")
-global['customReplies'] = {}
-global['userTriggers'] = {}
+const triggersFilePath = path.resolve(process.cwd(), "./triggers.json")
+global['triggers'] = {}
 
-if (fs.existsSync(customReplyFilePath)) {
+if (fs.existsSync(triggersFilePath)) {
   try {
-    global['customReplies'] = JSON.parse(fs.readFileSync(customReplyFilePath, 'utf-8'))
+    global['triggers'] = JSON.parse(fs.readFileSync(triggersFilePath, 'utf-8'))
   } catch (error) {
-    console.log(`Cannot parse customReplies due an error >`)
-    console.log(error)
-    // terrible...
-  }
-}
-
-if (fs.existsSync(userTriggersFilePath)) {
-  try {
-    global['userTriggers'] = JSON.parse(fs.readFileSync(userTriggersFilePath, 'utf-8'))
-  } catch (error) {
-    console.log(`Cannot parse userTriggers due an error >`)
+    console.log(`Cannot parse triggers due an error >`)
     console.log(error)
     // terrible...
   }
@@ -97,18 +85,26 @@ client.on("message", async (message) => {
   if (message.author.bot) return;
   if (!message.guild) return;
 
-  if (typeof (customReplies[message.content]) !== "undefined") {
-    if (customReplies[message.content].opts.noReply) {
-      return message.channel.send(customReplies[message.content].reply)
+  if (typeof (global.triggers.user) !== "undefined") {
+    const trigger = global.triggers.user[authorIssuer.user.username]
+    if (typeof (trigger) !== "undefined") {
+      if (trigger.opts.noReply) {
+        message.channel.send(trigger.reply, { tts: trigger.opts.tts })
+      } else {
+        message.reply(trigger.reply, { tts: trigger.opts.tts })
+      }
     }
-    return message.reply(customReplies[message.content].reply)
   }
 
-  if (typeof (global.userTriggers[message.author.username]) !== "undefined") {
-    if (global.userTriggers[message.author.username].opts.noReply) {
-      return message.channel.send(global.userTriggers[message.author.username].reply)
+  if (typeof (global.triggers.message) !== "undefined") {
+    const trigger = global.triggers.message[message.content]
+    if (typeof (trigger) !== "undefined") {
+      if (trigger.opts.noReply) {
+        message.channel.send(trigger.reply, { tts: trigger.opts.tts })
+      } else {
+        message.reply(trigger.reply, { tts: trigger.opts.tts })
+      }
     }
-    return message.reply(global.userTriggers[message.author.username].reply)
   }
 
   const prefixRegex = new RegExp(`^(<@!?${client.user.id}>|${escapeRegex(PREFIX)})\\s*`);
@@ -124,7 +120,7 @@ client.on("message", async (message) => {
     client.commands.find((cmd) => cmd.aliases && cmd.aliases.includes(commandName));
 
   if (!command) {
-    message.channel.send(`❌ Sorry but this command is not available/exists > ${commandName}`)
+    message.channel.send(`¯\(°_o)/¯ Sorry but i dont know what to do with that`)
     return false
   };
 
@@ -154,7 +150,7 @@ client.on("message", async (message) => {
     command.execute(message, args, client, authorIssuer, (matchedPrefix.length + commandName.length));
   } catch (error) {
     console.error(error);
-    message.reply("There was an error executing that command.").catch(console.error);
+    message.reply("WoOoaA it crash! ＼（〇_ｏ）／").catch(console.error);
   }
 });
 
