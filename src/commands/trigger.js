@@ -46,6 +46,10 @@ export default {
                 }
 
                 switch (action) {
+                    case "withUserCondition": {
+                        // Filter user condition and execute, ej. when X is playing "lol" and send an message, triggers...
+                        break;
+                    }
                     case "remove": {
                         let typedDB = {}
                         if (db[opts.type]) {
