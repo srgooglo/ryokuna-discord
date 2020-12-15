@@ -14,6 +14,7 @@ const { join } = require("path");
 
 const triggersFilePath = path.resolve(process.cwd(), "./triggers.json")
 global['triggers'] = {}
+global['run'] = true
 
 if (fs.existsSync(triggersFilePath)) {
   try {
@@ -78,16 +79,24 @@ for (const file of commandFiles) {
 }
 
 client.on("message", async (message) => {
+  let ignoreBots = true;
   const authorIssuer = message.guild.member(message.author.id);
   global["self"] = message.guild.member(global.selfClient.user);
   global["connectedVoiceChannel"] = global.selfClient.voice.connections.find(con => con.channel.id == message.member.voice.channel.id)
 
-  if (message.author.bot) return;
-  if (!message.guild) return;
+  if (message.author.bot) {
+    ignoreBots = true
+  }
+  if (!message.guild) return
 
   if (typeof (global.triggers.user) !== "undefined") {
     const trigger = global.triggers.user[authorIssuer.user.username]
     if (typeof (trigger) !== "undefined") {
+      if (!global.run) {
+        message.channel.send(`⛔ Braked`)
+        global.run = true
+        return
+      }
       if (trigger.opts.noReply) {
         message.channel.send(trigger.reply, { tts: trigger.opts.tts })
       } else {
@@ -99,6 +108,14 @@ client.on("message", async (message) => {
   if (typeof (global.triggers.message) !== "undefined") {
     const trigger = global.triggers.message[message.content]
     if (typeof (trigger) !== "undefined") {
+      if (!global.run) {
+        message.channel.send(`⛔ Braked`)
+        global.brake = false
+        return
+      }
+      if (trigger.opts.listenBots) {
+        ignoreBots = false
+      }
       if (trigger.opts.noReply) {
         message.channel.send(trigger.reply, { tts: trigger.opts.tts })
       } else {
@@ -106,6 +123,9 @@ client.on("message", async (message) => {
       }
     }
   }
+
+  if (ignoreBots) return;
+
 
   const prefixRegex = new RegExp(`^(<@!?${client.user.id}>|${escapeRegex(PREFIX)})\\s*`);
   if (!prefixRegex.test(message.content)) return;

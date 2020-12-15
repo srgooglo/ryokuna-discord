@@ -17,8 +17,8 @@ export default {
             try {
                 let opts = {
                     type: "message",
-                    authorLock: false,
-                    adminLock: false,
+                    author: author.user.username,
+                    lock: false,
                     noReply: false,
                     tts: false,
                 }
@@ -52,15 +52,10 @@ export default {
                             typedDB = db[opts.type]
                         }
 
-                        if (!typedDB[when]) {
-                            return message.reply(`⛔ Sorry but you cant delete something that not exist ผ(•̀_•́ผ)`)
+                        if (typedDB[when].opts.lock && !isAdmin && typedDB[when].opts.author !== author.user.username) {
+                            return message.reply(`⛔ Sorry but this trigger is locked for only admins or author can modify`)
                         }
-                        if (typedDB[when].opts.adminLock && !isAdmin) {
-                            return message.reply(`⛔ Sorry but this trigger is locked for only admins can modify`)
-                        }
-                        if (typedDB[when].opts.authorLock && !isAdmin && typedDB[when].opts.authorLock !== author.username) {
-                            return message.reply(`⛔ Sorry but this trigger only can be deleted by the author or an administator.`)
-                        }
+
                         message.reply(`🗑 Removed user trigger | ${when}`)
                         delete typedDB[when]
                         db[opts.type] = typedDB
