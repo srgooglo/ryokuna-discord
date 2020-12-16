@@ -2,11 +2,12 @@
 .nodecore.js
 .nodecore.ts
 .nodecore
+triggers.json
+./triggers.json
 
 dist/
 node_modules/
 test.js
-triggers.json
 .pidfile
 
 ./package-lock.json
