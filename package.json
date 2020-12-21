@@ -13,9 +13,7 @@
   "dependencies": {
     "@babel/runtime": "^7.12.5",
     "@discordjs/opus": "^0.3.3",
-    "@nodecorejs/dot-runtime": "^0.6.7",
-    "@nodecorejs/utils": "^0.6.7",
-    "command-exists": "^1.2.9",
+    "@ragestudio/nodecorejs": "^0.13.28",
     "discord.js": "^12.4.1",
     "exit-hook": "^2.2.0",
     "find-up": "^5.0.0",
