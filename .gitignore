@@ -10,6 +10,7 @@ node_modules/
 test.js
 .pidfile
 
+.audioBuffer/
 ./package-lock.json
 package-lock.json
 yarn.lock

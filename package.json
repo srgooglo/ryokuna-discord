@@ -4,8 +4,7 @@
   "main": "index.js",
   "originGit": "https://github.com/srgooglo/ryokuna-discord",
   "files": [
-    "./dist",
-    "./package.json"
+    "./dist"
   ],
   "engines": {
     "node": ">=12.0.0"
@@ -16,12 +15,13 @@
     "@ragestudio/nodecorejs": "^0.13.28",
     "discord.js": "^12.4.1",
     "exit-hook": "^2.2.0",
+    "ffmpeg-static": "^4.2.7",
     "find-up": "^5.0.0",
     "got": "^11.8.0",
     "node-fetch": "^2.6.1",
     "node-opus": "^0.3.3",
     "npm": "^6.14.9",
-    "opusscript": "^0.0.7",
+    "request": "^2.88.2",
     "rimraf": "^3.0.2"
   },
   "scripts": {
