@@ -1,4 +1,4 @@
-export default {
+module.exports = {
     name: "count",
     aliases: ["count"],
     description: "1,2,3...5?",

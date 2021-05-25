@@ -1,6 +1,6 @@
-import flushNickname from './flushNickname'
+const flushNickname = require("./flushNickname")
 
-export default (message) => {
+module.exports = (message) => {
     if (!message) return false
 
     const connectedChannel = global.selfClient.voice.connections.find(con => con.channel.id == message.member.voice.channel.id)

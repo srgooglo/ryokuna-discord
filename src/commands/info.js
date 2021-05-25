@@ -1,6 +1,4 @@
-import process from 'process'
-
-export default {
+module.exports = {
     name: "info",
     aliases: ["i"],
     description: "Show host server & version information",

@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { MessageEmbed } = require("discord.js")
 
 module.exports = {
   name: "help",
@@ -12,6 +12,9 @@ module.exports = {
       .setColor("#F8AA2A");
 
     commands.forEach((cmd) => {
+      if (!cmd.name || !cmd.aliases || !cmd.description) {
+        return false
+      }
       helpEmbed.addField(
         `**${message.client.prefix}${cmd.name} ${cmd.aliases ? `(${cmd.aliases})` : ""}**`,
         `${cmd.description}`,
@@ -21,6 +24,6 @@ module.exports = {
 
     helpEmbed.setTimestamp();
 
-    return message.channel.send(helpEmbed).catch(console.error);
+    return message.channel.send(helpEmbed).catch(console.error)
   }
-};
+}

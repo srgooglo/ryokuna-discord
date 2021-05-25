@@ -1,21 +1,17 @@
-import disconnect from '../lib/disconnectFromCurrent'
-import fetch from 'node-fetch'
-import bufferPlay from '../lib/bufferPipe'
+const disconnect = require("../lib/disconnectFromCurrent")
+const fetch = require("node-fetch")
+const path = require("path")
+const fs = require("fs")
+const request = require('request')
 
-import path from 'path'
-import fs from 'fs'
-const request = require('request');
-
-const { MessageEmbed } = require("discord.js");
-const { getRuntimeEnv } = require("@nodecorejs/dot-runtime")
+const { MessageEmbed } = require("discord.js")
 
 module.exports = {
   name: "fm",
   aliases: ["fm"],
   description: "Play audio streaming from Comty STM server",
   execute(message, args, client) {
-    const runtime = getRuntimeEnv()
-    if (!runtime || !runtime.ryo) {
+    if (!global._env.ryo) {
       message.reply(`[nodecore] Sorry but, runtime configuration its not available!\n Ryokuna services could not be initialized`)
     }
 

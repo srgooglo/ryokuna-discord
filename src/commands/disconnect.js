@@ -1,5 +1,4 @@
-import runtime from '@nodecorejs/dot-runtime'
-import disconnect from '../lib/disconnectFromCurrent'
+const disconnect = require('../lib/disconnectFromCurrent')
 
 module.exports = {
     name: "disconnect",

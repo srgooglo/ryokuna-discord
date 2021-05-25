@@ -1,5 +1,3 @@
-import { getVersion } from '@nodecorejs/dot-runtime'
-
 module.exports = {
     name: "version",
     aliases: ["v"],
@@ -8,7 +6,7 @@ module.exports = {
         let msg = [];
         let pid;
 
-        msg.push(`🚧 Using version **v${getVersion()}**`)
+        msg.push(`🚧 Using version **v${runtime.helpers.getVersion()}**`)
 
         if(global.pidFile){
             pid = global.pidFile

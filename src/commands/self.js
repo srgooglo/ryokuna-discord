@@ -1,6 +1,4 @@
-import runtime from '@nodecorejs/dot-runtime'
-
-export default {
+module.exports = {
     name: "self",
     aliases: ["slf"],
     description: "Debug self guild",

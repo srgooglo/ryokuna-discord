@@ -1,11 +1,11 @@
-import path from 'path'
-import fs from 'fs'
-import process from 'process'
-import { objectToArrayMap } from '@nodecorejs/utils'
 
-const { MessageEmbed } = require("discord.js");
+const path = require("path")
+const fs = require("fs")
 
-export default {
+const { objectToArrayMap } = require("@corenode/utils")
+const { MessageEmbed } = require("discord.js")
+
+module.exports = {
     name: "trigger",
     aliases: ["trigger"],
     description: "(⓿_⓿) Triggers",
