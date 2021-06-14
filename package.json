@@ -2,40 +2,24 @@
   "name": "ryokuna-discord",
   "version": "0.5.531",
   "description": "BlahBlahBlah",
-  "main": "index.js",
-  "files": [
-    "./dist"
-  ],
-  "engines": {
-    "node": ">=13.0.0"
+  "main": "./dist/index.js",
+  "scripts": {
+    "dev": "nodemon --ignore dist/ --exec 'corenode build && corenode' ./dist/index.js",
+    "start": "corenode ./src/index.js"
   },
   "dependencies": {
-    "@babel/runtime": "^7.14.0",
     "@discordjs/opus": "^0.3.3",
-    "corenode": "^0.21.5",
-    "discord.js": "^12.4.1",
-    "exit-hook": "^2.2.0",
+    "axios": "^0.21.1",
+    "corenode": "^0.24.12",
+    "discord.js": "^12.5.3",
     "ffmpeg-static": "^4.2.7",
     "find-up": "^5.0.0",
     "got": "^11.8.0",
     "node-fetch": "^2.6.1",
     "node-opus": "^0.3.3",
-    "npm": "^6.14.9",
-    "request": "^2.88.2",
     "rimraf": "^3.0.2"
   },
-  "scripts": {
-    "dev": "nodemon --signal SIGHUP --exec corenode ./src/index.js",
-    "start": "corenode ./src/index.js",
-    "build": "corenode build"
-  },
   "devDependencies": {
-    "args-parser": "^1.1.0",
-    "assert": "^2.0.0",
-    "escape-goat": "^3.0.0",
-    "i": "^0.3.6",
-    "new-github-release-url": "^1.0.0",
-    "nodemon": "^2.0.6",
-    "open": "^7.3.0"
+    "nodemon": "^2.0.7"
   }
 }
