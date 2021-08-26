@@ -12,6 +12,7 @@
     "axios": "^0.21.1",
     "corenode": "^0.24.12",
     "discord.js": "^12.5.3",
+    "exit-hook": "^2.2.1",
     "ffmpeg-static": "^4.2.7",
     "find-up": "^5.0.0",
     "got": "^11.8.0",

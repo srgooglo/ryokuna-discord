@@ -4,7 +4,7 @@ module.exports = {
     name: "fart",
     aliases: ["fart"],
     description: "😳",
-    execute(message, args) {
+    execute({message, args}) {
         const voiceChannel = message.member.voice.channel;
 
         if (voiceChannel) {

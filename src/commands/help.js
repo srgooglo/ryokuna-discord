@@ -4,20 +4,21 @@ module.exports = {
   name: "help",
   aliases: ["h"],
   description: "Display all commands and descriptions",
-  execute(message) {
-    let commands = message.client.commands.array();
-
+  execute({message, context}) {
     let helpEmbed = new MessageEmbed()
       .setTitle("| 🧐 Commands |")
       .setColor("#F8AA2A");
 
-    commands.forEach((cmd) => {
-      if (!cmd.name || !cmd.aliases || !cmd.description) {
+    Object.keys(context.commands).forEach((key) => {
+      const command = context.commands[key]
+
+      if (!command.name || !command.aliases || !command.description) {
         return false
       }
+
       helpEmbed.addField(
-        `**${message.client.prefix}${cmd.name} ${cmd.aliases ? `(${cmd.aliases})` : ""}**`,
-        `${cmd.description}`,
+        `**${message.client.prefix}${command.name} ${command.aliases ? `(${command.aliases})` : ""}**`,
+        `${command.description}`,
         true
       );
     });
